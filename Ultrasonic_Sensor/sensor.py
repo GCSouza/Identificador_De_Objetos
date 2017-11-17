@@ -114,9 +114,9 @@ def CalcRadius():
         rad = read
         
     if (rad > (radius+10)):
-        os.system('espeak -v pt -s 250 "depressão encontrada!"')
+        os.system('espeak -v pt -s 250 "depressão encontrada!" > /dev/null 2>&1')
     elif (rad < (radius-10)):
-        os.system('espeak -v pt -s 250 "elevação encontrada!"')
+        os.system('espeak -v pt -s 250 "elevação encontrada!" > /dev/null 2>&1')
     
     
     if (read < 30 or read > 100):
@@ -128,7 +128,7 @@ def ControlRadius():
     rad = 0
     for radius_item in radius_average:
         rad += radius_item
-    return (rad/3)
+    return (rad/2)
  
 # Define TRIG como saída digital
 # Define ECHO como entrada digital
@@ -143,9 +143,9 @@ GPIO.setup(radius_sensor._TRIG, GPIO.OUT)
 GPIO.setup(radius_sensor._ECHO, GPIO.IN)
 
 radius_count = 0
-radius_average = [100,100,0]
+radius_average = [100,0]
 
-os.system('espeak -v pt "Identificação de objetos iniciada"')
+os.system('espeak -v pt "Identificação de objetos iniciada" > /dev/null 2>&1')
 
 while True:
     n = 0
@@ -161,7 +161,7 @@ while True:
     print (radius_average)
     print ("RADIUS: " + str(radius))
     
-    if (radius_count >= 2):
+    if (radius_count >= 1):
         radius_count = 0
     else:
         radius_count += 1
